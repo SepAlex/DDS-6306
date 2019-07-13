@@ -1,0 +1,620 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Craft Beer \& Brewery Data Analysis},
+            pdfauthor={Jenna Ford \& Reannan McDaniel},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Craft Beer \& Brewery Data Analysis}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Jenna Ford \& Reannan McDaniel}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{6/29/2019}
+
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+Using the Beer and Breweries data files provided by Budweiser, our team
+was able to extrapolate information that could be beneficial in entering
+the craft beer market for Budweiser. The elements we focused on were
+breweries by State, beer styles, Alcohol by Volume (ABV), and
+International Bitterness Unit (IBU).
+
+The data provided for this analysis consists of 2410 US craft beers from
+558 US breweries. The data analysis that follows highlights the
+following in order to describe the current craft beer market:
+
+\begin{itemize}
+\tightlist
+\item
+  A look at the data
+\item
+  Missing values for ABV \& IBU measurements
+\item
+  How many breweries are in each state
+\item
+  Descriptive information for ABV
+\item
+  Median ABV \& IBU by state
+\item
+  Beer with the highest ABV and beer with the highest IBU
+\item
+  Correlation between ABV and IBU
+\end{itemize}
+
+The purpose is to give you descriptive information about the current
+craft beer market in the US to help direct what type of craft beer to
+produce and where to market it.
+
+\hypertarget{setup-libraries-and-reading-in-datasets}{%
+\subsection{Setup: Libraries and Reading in
+Datasets}\label{setup-libraries-and-reading-in-datasets}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(RCurl)}
+\KeywordTok{library}\NormalTok{(plyr)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\KeywordTok{library}\NormalTok{(car)}
+\KeywordTok{library}\NormalTok{(naniar)}
+\KeywordTok{library}\NormalTok{(viridis)}
+\KeywordTok{library}\NormalTok{(scales)}
+\CommentTok{#setwd("./Data")}
+\NormalTok{URL <-}\StringTok{ }\KeywordTok{getURL}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/BivinSadler/MSDS-6306-Doing-Data-Science/master/Unit%207/Beers.csv"}\NormalTok{)}
+\NormalTok{Beers <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{text=}\NormalTok{URL)}
+
+\NormalTok{URL1 <-}\StringTok{ }\KeywordTok{getURL}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/BivinSadler/MSDS-6306-Doing-Data-Science/master/Unit%207/Breweries.csv"}\NormalTok{)}
+\NormalTok{Breweries <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{text=}\NormalTok{URL1)}
+\NormalTok{opts <-}\StringTok{ }\KeywordTok{options}\NormalTok{()}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{ggplot2.continuous.colour=}\StringTok{"viridis"}\NormalTok{)}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{ggplot2.continuous.fill=}\StringTok{"viridis"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a-look-at-the-data}{%
+\subsection{A Look at the Data}\label{a-look-at-the-data}}
+
+To get a sense of the data, we have proivded the first 6 and last 6
+records of the data. Reviewing the data shows that one brewery can have
+multiple beers that it produces and that not all values are populated
+for every observation. Some information about these records is provided
+below:
+
+All states (including D.C.) have at least one brewery and 33 states
+(including D.C.) have 10 or fewer breweries.
+
+The first six observations (sorted by by brewery ID):
+
+\begin{itemize}
+\tightlist
+\item
+  Northgate in MN is the only brewery
+\item
+  The beer size for all is 16oz
+\item
+  The ABV range is .045-.060
+\item
+  The IBU range is 19-50
+\item
+  6 different beer styles
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{BreweriesFullDataset <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(Breweries,Beers, }\DataTypeTok{by.x =} \StringTok{"Brew_ID"}\NormalTok{, }\DataTypeTok{by.y =} \StringTok{"Brewery_id"}\NormalTok{,}\DataTypeTok{all=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{names}\NormalTok{(BreweriesFullDataset) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Brew_ID"}\NormalTok{,}\StringTok{"Brewery"}\NormalTok{,}\StringTok{"City"}\NormalTok{,}\StringTok{"State"}\NormalTok{,}\StringTok{"Beer"}\NormalTok{,}\StringTok{"Beer_ID"}\NormalTok{,}\StringTok{"ABV"}\NormalTok{,}\StringTok{"IBU"}\NormalTok{,}\StringTok{"Style"}\NormalTok{,}\StringTok{"Ounces"}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(BreweriesFullDataset,}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Brew_ID            Brewery        City State          Beer Beer_ID   ABV
+## 1       1 NorthGate Brewing  Minneapolis    MN       Pumpion    2689 0.060
+## 2       1 NorthGate Brewing  Minneapolis    MN    Stronghold    2688 0.060
+## 3       1 NorthGate Brewing  Minneapolis    MN   Parapet ESB    2687 0.056
+## 4       1 NorthGate Brewing  Minneapolis    MN  Get Together    2692 0.045
+## 5       1 NorthGate Brewing  Minneapolis    MN Maggie's Leap    2691 0.049
+## 6       1 NorthGate Brewing  Minneapolis    MN    Wall's End    2690 0.048
+##   IBU                               Style Ounces
+## 1  38                         Pumpkin Ale     16
+## 2  25                     American Porter     16
+## 3  47 Extra Special / Strong Bitter (ESB)     16
+## 4  50                        American IPA     16
+## 5  26                  Milk / Sweet Stout     16
+## 6  19                   English Brown Ale     16
+\end{verbatim}
+
+The last six observations (sorted by by brewery ID):
+
+\begin{itemize}
+\tightlist
+\item
+  3 different breweries comprise the last 6 observations
+\item
+  The beer size is 12oz
+\item
+  The ABV range is .043-.068
+\item
+  The IBU is not provided
+\item
+  6 different beer styles
+\item
+  Butternuts Beer \& Ale in KY is 4 of the 6 breweries
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(BreweriesFullDataset,}\DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Brew_ID                       Brewery          City State
+## 2405     556         Ukiah Brewing Company         Ukiah    CA
+## 2406     557       Butternuts Beer and Ale Garrattsville    NY
+## 2407     557       Butternuts Beer and Ale Garrattsville    NY
+## 2408     557       Butternuts Beer and Ale Garrattsville    NY
+## 2409     557       Butternuts Beer and Ale Garrattsville    NY
+## 2410     558 Sleeping Lady Brewing Company     Anchorage    AK
+##                           Beer Beer_ID   ABV IBU                   Style
+## 2405             Pilsner Ukiah      98 0.055  NA         German Pilsener
+## 2406         Porkslap Pale Ale      49 0.043  NA American Pale Ale (APA)
+## 2407           Snapperhead IPA      51 0.068  NA            American IPA
+## 2408         Moo Thunder Stout      50 0.049  NA      Milk / Sweet Stout
+## 2409  Heinnieweisse Weissebier      52 0.049  NA              Hefeweizen
+## 2410 Urban Wilderness Pale Ale      30 0.049  NA        English Pale Ale
+##      Ounces
+## 2405     12
+## 2406     12
+## 2407     12
+## 2408     12
+## 2409     12
+## 2410     12
+\end{verbatim}
+
+\hypertarget{missing-values}{%
+\subsection{Missing Values}\label{missing-values}}
+
+An analysis of missing values present in the data can help identify
+patterns. ABV and IBU were the only fields where missing values were
+found. It is interesting to note that there is a high percentage of
+missing values for IBU (42\%) but not ABV (3\%). Also, every instance
+where ABV was missing, IBU was also missing.
+
+The graph below shows that only IBU and ABV have missing values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gg_miss_var}\NormalTok{(BreweriesFullDataset) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Missing Values by Variable"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Case_Study.1_files/figure-latex/question3a-1.pdf}
+
+The next chart highlights the percentage of missing values for ABV and
+IBU by state. SD does not have any records where IBU is populated.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gg_miss_fct}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{select}\NormalTok{(BreweriesFullDataset,State,ABV,IBU),}\DataTypeTok{fct=}\NormalTok{State) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{0}\NormalTok{, }\DataTypeTok{vjust=}\FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"% Missing ABV & IBU Values by State"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Case_Study.1_files/figure-latex/question3b-1.pdf}
+
+For the purpose of this analysis, we omit records when the pertinent
+field is missing values. FOr example, all records are used in the
+Brewery Counts by State graph, but 62 records are removed on the Median
+ABV by State graph because ABV is missing.
+
+\hypertarget{brewery-counts-by-state}{%
+\subsection{Brewery Counts by State}\label{brewery-counts-by-state}}
+
+The following charts shows brewery counts by state. Colorado,
+California, Michigan, Oregan and Texas are 5 states with the most craft
+breweries. Nevada, D.C., North Dakota, South Dakota and West Virginia
+are the 5 locales with the fewest craft breweries.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{BreweriesByState <-}\StringTok{ }\NormalTok{plyr}\OperatorTok{::}\KeywordTok{count}\NormalTok{(Breweries}\OperatorTok{$}\NormalTok{State)}
+\KeywordTok{ggplot}\NormalTok{(BreweriesByState,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{reorder}\NormalTok{(x,}\OperatorTok{-}\NormalTok{freq),}\DataTypeTok{y=}\NormalTok{freq,}\DataTypeTok{fill=}\NormalTok{freq)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{,}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{,}\DataTypeTok{show.legend=}\OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"State"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Brewery Count"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Brewery Counts by State"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{0}\NormalTok{, }\DataTypeTok{vjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Case_Study.1_files/figure-latex/question1-1.pdf}
+
+The more saturated a market is the more difficult it may be to enter the
+market. More research on overall beer consumption compared to craft beer
+consumption by market is recommended to help identify an ideal place to
+enter the market.
+
+\hypertarget{top-10-beer-styles-by-state}{%
+\subsection{Top 10 Beer Styles by
+State}\label{top-10-beer-styles-by-state}}
+
+The top 10 beer styles out of the 100 found in the data provided are as
+follows (in descending order):
+
+\begin{itemize}
+\tightlist
+\item
+  American IPA
+\item
+  American Pale Ale (APA)
+\item
+  American Amber/Red Ale
+\item
+  American Blonde Ale
+\item
+  American Double/Imperial IPA
+\item
+  American Pale Wheat Ale
+\item
+  American Brown Ale
+\item
+  American Porter
+\item
+  Saison/Farmhouse Ale
+\item
+  Witbier
+\end{itemize}
+
+As far as what types of beer to produce, the graph below shows the
+production of these top 10 beer styles by state. We are using a measure
+of popularity based on the number of beers produced, not consumption.
+This shows popularity of beers in each market.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{BeerStyles <-}\StringTok{ }\NormalTok{plyr}\OperatorTok{::}\KeywordTok{count}\NormalTok{(Beers}\OperatorTok{$}\NormalTok{Style)}
+\KeywordTok{str}\NormalTok{(BeerStyles)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    100 obs. of  2 variables:
+##  $ x   : Factor w/ 100 levels "","Abbey Single Ale",..: 1 2 3 4 5 6 7 8 9 10 ...
+##  $ freq: int  5 2 13 18 133 29 3 36 108 70 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TopBeerStyles <-}\StringTok{ }\KeywordTok{head}\NormalTok{(}\KeywordTok{arrange}\NormalTok{(BeerStyles,}\KeywordTok{desc}\NormalTok{(freq)), }\DataTypeTok{n =} \DecValTok{10}\NormalTok{)}
+\NormalTok{TopBeerStylesFullData <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(}\DataTypeTok{x=}\NormalTok{BreweriesFullDataset,}\DataTypeTok{y=}\NormalTok{TopBeerStyles,}\DataTypeTok{by.x=}\StringTok{"Style"}\NormalTok{,}\DataTypeTok{by.y=}\StringTok{"x"}\NormalTok{,}\DataTypeTok{all.y=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(TopBeerStylesFullData,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{reorder}\NormalTok{(State,}\OperatorTok{-}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\KeywordTok{length}\NormalTok{(State)),sum),}\DataTypeTok{fill=}\NormalTok{Style)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.title.x =} \KeywordTok{element_blank}\NormalTok{())  }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Beer Count by Style"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Top 10 Beer Styles by State"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle=}\DecValTok{90}\NormalTok{,}\DataTypeTok{hjust=}\DecValTok{0}\NormalTok{,}\DataTypeTok{vjust=}\FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"bottom"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{6}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill=}\KeywordTok{guide_legend}\NormalTok{(}\DataTypeTok{nrow=}\DecValTok{4}\NormalTok{, }\DataTypeTok{byrow=}\OtherTok{TRUE}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Case_Study.1_files/figure-latex/style-1.pdf}
+
+\hypertarget{summary-statistics-for-abv}{%
+\subsection{Summary Statistics for
+ABV}\label{summary-statistics-for-abv}}
+
+It is important to know some information about the properties of the
+beer when entering the craft beer market. What you see here is
+statistics for ABV.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(BreweriesFullDataset}\OperatorTok{$}\NormalTok{ABV)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+## 0.00100 0.05000 0.05600 0.05977 0.06700 0.12800      62
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(BreweriesFullDataset,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y=}\NormalTok{ABV)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill=}\StringTok{"#93e45c"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_x_discrete}\NormalTok{(}\DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\StringTok{"0"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"ABV Summary Statistics"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 62 rows containing non-finite values (stat_boxplot).
+\end{verbatim}
+
+\includegraphics{Case_Study.1_files/figure-latex/question6-1.pdf}
+
+The average ABV is 6\%. The middle 50\% of the data fall between 5\% and
+6.7\%. You may want to target this range during production.
+
+We do not include a similar view for IBU because a significant
+percentage of records are missing data.
+
+\hypertarget{median-abv-ibu-by-state}{%
+\subsection{Median ABV \& IBU by State}\label{median-abv-ibu-by-state}}
+
+The graph below shows median values for ABV by state. The range for
+medians is relatively tight, between 4\% and 6\%.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Median.ABV.IBU <-}\StringTok{ }\NormalTok{BreweriesFullDataset }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(State)}\OperatorTok{%>%}\StringTok{ }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{Median_ABV=}\KeywordTok{median}\NormalTok{(ABV,}\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{),}\DataTypeTok{Median_IBU=}\KeywordTok{median}\NormalTok{(IBU,}\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{))}
+\KeywordTok{ggplot}\NormalTok{(Median.ABV.IBU,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{reorder}\NormalTok{(State,}\OperatorTok{-}\NormalTok{Median_ABV),}\DataTypeTok{y=}\NormalTok{Median_ABV,}\DataTypeTok{fill=}\NormalTok{Median_ABV)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{,}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{,}\DataTypeTok{show.legend=}\OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"State"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"ABV"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Median ABV by State"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{0}\NormalTok{, }\DataTypeTok{vjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Case_Study.1_files/figure-latex/question4a-1.pdf}
+
+The graph below shows median values for IBU by state. The range for
+medians is more spread, between 20 and just over 60.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(Median.ABV.IBU,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{reorder}\NormalTok{(State,}\OperatorTok{-}\NormalTok{Median_IBU),}\DataTypeTok{y=}\NormalTok{Median_IBU,}\DataTypeTok{fill=}\NormalTok{Median_IBU)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{,}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{,}\DataTypeTok{show.legend=}\OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"State"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Median IBU by State"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"Median IBU by State"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{90}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{0}\NormalTok{, }\DataTypeTok{vjust=}\FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 1 rows containing missing values (geom_bar).
+\end{verbatim}
+
+\includegraphics{Case_Study.1_files/figure-latex/question4b-1.pdf}
+
+\hypertarget{max-abv-ibu}{%
+\subsection{Max ABV \& IBU}\label{max-abv-ibu}}
+
+The beer with the maximum ABV is the 19.2oz ``Lee Hill Series Vol.5 -
+Belgian Style Quadrupel Ale''. The beer is produced by the Upslope
+Brewing Company in Colorado and has an ABV of 12.8\%.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{BreweriesFullDataset[}\KeywordTok{which.max}\NormalTok{(BreweriesFullDataset}\OperatorTok{$}\NormalTok{ABV),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Brew_ID                 Brewery    City State
+## 384      52 Upslope Brewing Company Boulder    CO
+##                                                     Beer Beer_ID   ABV IBU
+## 384 Lee Hill Series Vol. 5 - Belgian Style Quadrupel Ale    2565 0.128  NA
+##                Style Ounces
+## 384 Quadrupel (Quad)   19.2
+\end{verbatim}
+
+The most bitter beer is the 12oz ``Bitter Bitch Imperial IPA''. This
+American Double/Imperial IPA beer is produced by the Astoria Brewing
+Company in Oregon and has an IBU of 138.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{BreweriesFullDataset[}\KeywordTok{which.max}\NormalTok{(BreweriesFullDataset}\OperatorTok{$}\NormalTok{IBU),]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Brew_ID                 Brewery    City State
+## 1857     375 Astoria Brewing Company Astoria    OR
+##                           Beer Beer_ID   ABV IBU
+## 1857 Bitter Bitch Imperial IPA     980 0.082 138
+##                               Style Ounces
+## 1857 American Double / Imperial IPA     12
+\end{verbatim}
+
+\hypertarget{correlation-between-abv-ibu}{%
+\subsection{Correlation between ABV \&
+IBU}\label{correlation-between-abv-ibu}}
+
+There is strong evidence to suggest that IBU and ABV have a moderate
+correlation. It is estimated that 45\% of the variation in ABV can be
+explained by IBU.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(BreweriesFullDataset, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{IBU, }\DataTypeTok{y=}\NormalTok{ABV)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color=}\StringTok{"#93e45c"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method=}\StringTok{"lm"}\NormalTok{,}\DataTypeTok{se=}\NormalTok{F) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"% Correlation between IBU and ABV"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 1005 rows containing non-finite values (stat_smooth).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 1005 rows containing missing values (geom_point).
+\end{verbatim}
+
+\includegraphics{Case_Study.1_files/figure-latex/question7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#scatterplot(BreweriesFullDataset$IBU,BreweriesFullDataset$ABV,xlab="IBU",ylab="ABV",main="Relationship between ABV and IBU",smooth = FALSE, grid = FALSE, frame = FALSE, col="#93e45c")}
+\KeywordTok{cor.test}\NormalTok{(BreweriesFullDataset}\OperatorTok{$}\NormalTok{IBU,BreweriesFullDataset}\OperatorTok{$}\NormalTok{ABV,}\DataTypeTok{method=}\KeywordTok{c}\NormalTok{(}\StringTok{"pearson"}\NormalTok{,}\StringTok{"kendall"}\NormalTok{,}\StringTok{"spearman"}\NormalTok{),}\DataTypeTok{use=}\StringTok{"complete.obs"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  BreweriesFullDataset$IBU and BreweriesFullDataset$ABV
+## t = 33.863, df = 1403, p-value < 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.6407982 0.6984238
+## sample estimates:
+##       cor 
+## 0.6706215
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(IBU}\OperatorTok{~}\NormalTok{ABV,}\DataTypeTok{data=}\NormalTok{BreweriesFullDataset)}
+\KeywordTok{summary}\NormalTok{(lm)}\OperatorTok{$}\NormalTok{r.squared}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4497332
+\end{verbatim}
+
+\hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+This analysis provided descriptive information about the craft beer
+market in the US. With the data provided, we concluded there is a market
+for craft beer due to different styles becoming more desirable. We
+highlighted the middle 50\% range for ABV of 5\% and 6.7\% that you
+should aim for during production. Opportunity for growth in establishing
+a brewery could be sought in states where there is already a footprint
+established or trending in that direction based off of the number of
+breweries by state. However, we think more research needs to be done
+with respect to beer consumption by style and state to narrow down the
+beer style you want to produce and the market you want to enter first.
+
+The visual presentation can be found
+\href{https://prezi.com/view/VWmVoDECGF76IKWRVCiR/}{here}
+
+
+\end{document}

@@ -1,0 +1,40 @@
+---
+title: "Reannan_McDaniel_HW3"
+author: "Reannan McDaniel"
+date: "6/28/2019"
+output: 
+  html_document:
+    keep_md: yes
+---
+
+```{r}
+library(RCurl)
+library(plyr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(car)
+library(naniar)
+library(viridis)
+library(scales)
+```
+
+
+# 2a.
+## Read in titanic.csv file
+## Assign to df
+```{r}
+read.csv("titanic.csv")
+Titanic_df <- read.csv("titanic.csv")
+str(Titanic_df)
+```
+
+# 2b.
+## Count of females and males on the Titanic
+```{r}
+
+str(Titanic_df)
+length(Titanic_df$Sex)
+summary(Titanic_df)
+hist(Gender)
+```

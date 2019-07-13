@@ -1,0 +1,90 @@
+---
+title: "Reannan_McDaniel_HW3"
+author: "Reannan McDaniel"
+date: "6/28/2019"
+output: 
+  html_document:
+    keep_md: yes
+---
+
+```{r}
+library(RCurl)
+library(plyr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(car)
+library(naniar)
+library(viridis)
+library(scales)
+```
+
+
+# 2a.
+## Read in titanic.csv file
+## Assign to df
+```{r}
+
+URL <- getURL("https://raw.githubusercontent.com/rmcdaniel-smu/MSDS-SMU/master/titanic.csv")
+Titanic_df <- read.csv(text = URL)
+str(Titanic_df)
+length(Titanic_df$Sex)
+```
+
+# 2b.
+## Count of females and males on the Titanic
+# Females = 314
+# Males = 577
+```{r}
+
+str(Titanic_df)
+summary(Titanic_df)
+Gender <- as.numeric(Titanic_df$Sex)
+hist(Gender)
+```
+
+# 2c. 
+## # 2c.
+## Find the mean of Age, Fare and Survived
+# Mean Age = NA
+# Mean Fare = 32.20
+# Mean Survived = 0.383
+```{r}
+mean(Titanic_df$Age)
+mean(Titanic_df$Fare)
+mean(Titanic_df$Survived)
+```
+
+# 3a.
+## Create objects for median Age, min and max Duration of Sleep, and the mean and standard deviation of the Rosenberg Self Esteem Scale
+```{r}
+URL2 <- getURL("http://talklab.psy.gla.ac.uk/L1_labs/lab_1/homework/sleep_data_01.csv")
+Sleep1 <- read.csv(text = URL2)
+str(Sleep1)
+summary(Sleep1)
+MedAge <- median(Sleep1$Age)
+MinDuration <- pmin(Sleep1$Duration)
+MaxDuration <- pmax(Sleep1$Duration)
+MeanRSES <- mean(Sleep1$RSES)
+SdRSES <- sd(Sleep1$RSES)
+```
+
+# 3b.
+## Create data frame from 3a.
+```{r}
+Records <- data.frame(MedAge, MinDuration, MaxDuration, MeanRSES, SdRSES)
+```
+
+#3c.
+## Change the column names to MedianAge, SelfEsteem, SE_SD and DurationRange
+```{r}
+
+MedianAge <- median(Sleep1$Age)
+MinDuration <- pmin(Sleep1$Duration)
+MaxDuration <- pmax(Sleep1$Duration)
+SelfEsteem <- mean(Sleep1$RSES)
+SE_SD <- sd(Sleep1$RSES)
+Records1 <- data.frame(MedianAge, MinDuration, MaxDuration, SelfEsteem, SE_SD)
+```
+
+#4a. 

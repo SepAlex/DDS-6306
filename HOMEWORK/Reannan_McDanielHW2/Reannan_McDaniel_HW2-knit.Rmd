@@ -1,0 +1,49 @@
+---
+title: "Reannan_McDaniel HW2"
+author: '"Reannan"'
+date: "5/20/2019"
+output: html_document
+---
+
+```{r, echo=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# What is a basic workflow for repoducible research?  
+## Be able to right a code that any researcher can reproduce and provide an analysis.  
+
+# What are five practical tips for making research reproducible?  
+## Save    
+## Not complex    
+## Easily readable   
+## Order    
+## Share    .  
+
+# Give an example of you might implement each tip.    
+# **Save**  
+## Ensure all steps and notes are included in file. Use a text editor to save.   
+# **Not complex**
+## Don't write a code that no one can understand. Keep it simple. 
+# **Easily readable**  
+## Code is easy to follow and understand  
+# **Order**  
+## Steps and processes make sense.
+# **Share**  
+## Share with other researchers in github or other web sources.  
+
+# Which one of these do you think will be the most difficult?  
+## **Not Complex**  I tend to make things harder than they need to be.  
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=TRUE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
